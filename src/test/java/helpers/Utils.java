@@ -36,7 +36,7 @@ public class Utils {
         return request;
     }
 
-    //
+    // This method loads the global properties from a file and retrieves the value associated with the provided key.
     public static String getGlobalValue(String key) {
         // This method loads the global properties from a file and retrieves the value associated with the provided key.
         if (properties.isEmpty()) {
