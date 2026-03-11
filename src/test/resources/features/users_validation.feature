@@ -41,6 +41,12 @@ Feature: Validate response details for users api endpoint
     When I fetch details for that user
     Then the email field in the response should be in valid email format
 
+  @positive_flow
+  Scenario: User details should contain valid id when valid username is provided
+    Given a username is "Delphine"
+    When I fetch details for that user
+    Then the id field in the response should be a valid numeric value
+
   @negative_flow
   Scenario: User does not exist when invalid username is provided
     Given a username is "InvalidUser"
