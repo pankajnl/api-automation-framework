@@ -1,5 +1,5 @@
 Feature: Validate emails in the comments are in the proper format
-
+  @email_validation
   Scenario Outline: Validate emails in comments for posts created by user
     Given a username is "<username>"
     When I fetch posts for that user

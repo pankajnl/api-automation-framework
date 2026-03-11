@@ -5,7 +5,9 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features",
+        plugin = "json:target/jsonReports/cucumber-report.json",
         glue = {"stepdefinitions"},
+        tags = "@email_validation",
         monochrome = true
 )
 
