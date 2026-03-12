@@ -96,10 +96,19 @@ src
 Make sure the following are installed:
 - Java 17
 - Maven
+## Environment Support
+
+The framework supports multiple environments through Maven profiles.
+
+Available profiles:
+- dev
+- tst
+- qa
+- prd
 ### Run tests from terminal
 To execute the email validation suite:
 ```bash
-mvn clean verify -Dcucumber.filter.tags="@email_validation"
+mvn clean verify -Ptst -Dcucumber.filter.tags="@email_validation"
 ```
 
 ## Test Reports
@@ -121,11 +130,11 @@ The framework uses the public JSONPlaceholder API:
 https://jsonplaceholder.typicode.com
 
 ## CI Integration
-The framework is integrated with CircleCI.
+The framework is integrated with CircleCI using pipeline parameters for environment and tag selection.
 
 Tests are executed in CI using:
 ```bash
-mvn clean verify -Dcucumber.filter.tags="@email_validation"
+mvn clean verify -P<< pipeline.parameters.test_env >> -Dcucumber.filter.tags="<< pipeline.parameters.cucumber_tag >>"
 ```
 
 After successful execution, the generated Cucumber reports are uploaded as CircleCI artifacts.

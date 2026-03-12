@@ -28,7 +28,7 @@ public class Utils {
             }
         }
         if(request==null) {
-            request = new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl"))
+            request = new RequestSpecBuilder().setBaseUri(getBaseUrl())
                     .addFilter(RequestLoggingFilter.logRequestTo(log))
                     .addFilter(ResponseLoggingFilter.logResponseTo(log))
                     .setContentType(ContentType.JSON).build();
@@ -44,10 +44,26 @@ public class Utils {
                 properties.load(fileInputStream);
             } catch (IOException e) {
                 // Log the exception and return null to indicate failure
-                System.err.println("Error loading global properties: " + e.getMessage());
-                return null;
+                throw new RuntimeException("Error loading global properties", e);
             }
         }
         return properties.getProperty(key);
+    }
+
+    // This method retrieves the base URL for the API from the global properties file based on the environment specified as a system property.
+    public static String getBaseUrl() {
+        String env = System.getProperty("env");
+
+        if (env == null || env.trim().isEmpty()) {
+            throw new RuntimeException("Environment is not specified. Please run with a valid Maven profile such as -Pdev, -Ptst, -Pqa or -Pprd.");
+        }
+
+        String baseUrl = getGlobalValue(env + ".baseUrl");
+
+        if (baseUrl == null || baseUrl.trim().isEmpty()) {
+            throw new RuntimeException("Base URL is not configured for environment: " + env);
+        }
+
+        return baseUrl;
     }
 }
