@@ -7,5 +7,6 @@
     "body": { "type": "string" },
     "userId": { "type": "integer" },
     "id": { "type": "integer" }
-  }
+  },
+    "additionalProperties": false
 }

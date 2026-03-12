@@ -7,6 +7,8 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Utils {
@@ -21,9 +23,15 @@ public class Utils {
     public static RequestSpecification requestSpecification() {
         if(log==null) {
             try {
-                log = new PrintStream(new FileOutputStream("logging.txt"));
+                // Create target/logs directory if it doesn't exist
+                Files.createDirectories(Paths.get("target/logs"));
+                // false parameter means overwrite the file on each run instead of appending
+                log = new PrintStream(new FileOutputStream("target/logs/logging.txt", false));
             } catch (FileNotFoundException e) {
                 // Fallback to console logging if file cannot be created
+                log = System.out;
+            } catch (IOException e) {
+                // Fallback to console logging if directory creation fails
                 log = System.out;
             }
         }

@@ -23,9 +23,11 @@
             "properties": {
               "lat": { "type": "string" },
               "lng": { "type": "string" }
-            }
+            },
+            "additionalProperties": false
           }
-        }
+        },
+        "additionalProperties": false
       },
       "phone": { "type": "string" },
       "website": { "type": "string" },
@@ -36,8 +38,10 @@
           "name": { "type": "string" },
           "catchPhrase": { "type": "string" },
           "bs": { "type": "string" }
-        }
+        },
+        "additionalProperties": false
       }
-    }
+    },
+    "additionalProperties": false
   }
 }

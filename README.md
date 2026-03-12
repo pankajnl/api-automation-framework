@@ -74,17 +74,28 @@ src
      │   │   └── TestRunner.java
      │   ├── helpers
      │   │   ├── APIResources.java
+             ├── SchemaValidator.java
+             ├── TestDataReader.java
      │   │   ├── Utils.java
      │   │   └── Validator.java
      │   └── stepdefinitions
      │       ├── CommentsEmailValidationSteps.java
+             ├── CreatePostSteps.java
      │       └── Hooks.java
      │
      └── resources
          ├── config
          │   └── global.properties
          └── features
+             └── create_post.feature
              └── emails_in_comments_validation.feature
+         └── schemas
+             ├── comment_schema.json
+             ├── create_posts_response_schema.json
+             ├── posts_schema.json
+             └── user_schema.json
+         └── testdata    
+             └── create_post_payload.json
 ```     
 ## Framework Design Highlights
 - POJO-based response deserialization for clean object mapping
@@ -153,5 +164,29 @@ CircleCI pipeline successfully executes the test suite and generates reports.
 
 ### Cucumber Report
 ![Cucumber Report](images/cucumber-report.png)
+
+## Test Analysis Techniques Used
+
+The test scenarios were designed using a combination of functional and non-functional test analysis techniques to improve coverage and ensure the framework validates both expected and unexpected API behaviour.
+
+The following techniques were applied:
+
+- **Equivalence Partitioning**  
+  Used to identify representative input categories such as valid usernames, invalid usernames, valid email formats, invalid email formats, and valid/invalid post request data.
+
+- **Positive and Negative Testing**  
+  Used to validate both successful API workflows and failure-oriented conditions such as missing users, empty responses, and invalid request scenarios.
+
+- **Error Guessing**  
+  Applied based on QA experience to identify likely failure points such as missing comments, unexpected response fields, incorrect headers, invalid configurations, and inconsistent API behaviour.
+
+- **Data-Driven Testing**  
+  Implemented using Cucumber Scenario Outline and external JSON test data files to separate test logic from test input data.
+
+- **API Contract / Schema Validation**  
+  Used to validate response structure, required fields, data types, and strict schema compliance through JSON schema validation.
+
+- **Non-Functional Test Design**  
+  Additional non-functional scenarios were identified for response time, repeated request stability, concurrent request handling.
 ## Author
 Pankaj Nalawade
