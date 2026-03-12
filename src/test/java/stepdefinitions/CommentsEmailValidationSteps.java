@@ -19,6 +19,7 @@ import static io.restassured.RestAssured.given;
 // This class contains step definitions for feature file emails_in_comments_validation.feature.
 public class CommentsEmailValidationSteps {
     private final TestContext context;
+    private Response response;
 
     public CommentsEmailValidationSteps(TestContext context) {
         this.context = context;
@@ -26,7 +27,7 @@ public class CommentsEmailValidationSteps {
 
     @Given("a username is {string}")
     public void setUsername(String username) {
-        Response response = given().spec(Utils.requestSpecification()).queryParam("username",username)
+        response = given().spec(Utils.requestSpecification()).queryParam("username",username)
                               .when().get(APIResources.GetUserAPI.getResource());
 
         response.then().statusCode(200);
@@ -43,7 +44,7 @@ public class CommentsEmailValidationSteps {
     }
     @When("I fetch posts for that user")
     public void fetchPostForUser() {
-        Response response = given().spec(Utils.requestSpecification()).queryParam("userId",context.userId)
+        response = given().spec(Utils.requestSpecification()).queryParam("userId",context.userId)
                                .when().get(APIResources.GetPostAPI.getResource());
 
         response.then().statusCode(200);
@@ -64,7 +65,7 @@ public class CommentsEmailValidationSteps {
     public void fetchCommentsForEachPost() {
         context.emailsInComments.clear();
         for(Integer postId : context.postIds) {
-            Response response = given().spec(Utils.requestSpecification()).queryParam("postId",postId)
+            response = given().spec(Utils.requestSpecification()).queryParam("postId",postId)
                                          .when().get(APIResources.GetCommentApi.getResource());
 
             response.then().statusCode(200);

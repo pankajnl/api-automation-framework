@@ -3,7 +3,7 @@ package pojo;
 //Class is used set or get userId, id, title and body values
 public class Posts {
         private int userId;
-        private int id;
+        private Integer id;
         private String title;
         private String body;
 
@@ -15,7 +15,7 @@ public class Posts {
             this.userId = userId;
         }
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 

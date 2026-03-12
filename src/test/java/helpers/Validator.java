@@ -76,6 +76,15 @@ public class Validator {
         Assert.assertNotNull(comment.getBody(), "Comment body should not be null");
     }
 
+    public static void validateCreatePostResponse(Response response) {
+        Posts post = response.as(Posts.class);
+
+        Assert.assertTrue(post.getId() > 0, "Post id should be greater than 0");
+        Assert.assertTrue(post.getUserId() > 0, "User id should be greater than 0");
+        Assert.assertNotNull(post.getTitle(), "Post title should not be null");
+        Assert.assertNotNull(post.getBody(), "Post body should not be null");
+    }
+
     // This method validates common headers in the response, such as Content-Type, Connection, and Date.
     public static void validateCommonHeaders(Response response) {
 

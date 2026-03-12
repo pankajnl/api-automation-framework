@@ -8,7 +8,8 @@ This approach helps to keep our code organized and maintainable, as we can centr
 public enum APIResources {
     GetUserAPI("/users"),
     GetPostAPI("/posts"),
-    GetCommentApi("/comments");
+    GetCommentApi("/comments"),
+    CreatePostAPI("/posts");
 
     private String resource;
 

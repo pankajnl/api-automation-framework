@@ -1,5 +1,6 @@
 package context;
 
+import pojo.Posts;
 import pojo.User;
 
 import java.util.ArrayList;
@@ -11,11 +12,15 @@ public class TestContext {
     public Integer userId;
     public List<Integer> postIds = new ArrayList<>();
     public List<String> emailsInComments = new ArrayList<>();
+    public Posts createPostRequest;
+    public Posts createPostResponse;
 
     public void clear() {
         currentUser = null;
         userId = null;
         postIds.clear();
         emailsInComments.clear();
+        createPostRequest = null;
+        createPostResponse = null;
     }
 }
