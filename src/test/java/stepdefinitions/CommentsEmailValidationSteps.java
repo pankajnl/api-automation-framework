@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import context.TestContext;
 import helpers.APIResources;
 import helpers.Utils;
 import helpers.Validator;
@@ -10,9 +11,6 @@ import org.testng.Assert;
 import pojo.Comments;
 import pojo.Posts;
 import pojo.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 

@@ -1,4 +1,4 @@
-package stepdefinitions;
+package context;
 
 import pojo.User;
 
