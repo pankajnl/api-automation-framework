@@ -7,13 +7,13 @@ parameters:
 
   cucumber_tag:
     type: enum
-    enum: [ "@email_validation", "@positive_flow", "@negative_flow" ]
+    enum: [ "@email_validation", "@positive_flow", "@negative_flow","@performance" ]
     default: "@email_validation"
 
 jobs:
   build:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: cimg/openjdk:17.0.11
 
     steps:
       - checkout
@@ -22,6 +22,8 @@ jobs:
             command: |
               echo "Environment: << pipeline.parameters.test_env >>"
               echo "Cucumber tag: << pipeline.parameters.cucumber_tag >>"
+              java -version
+              mvn -version
 
       - run:
           name: Run API tests and generate cucumber report
