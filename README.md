@@ -17,7 +17,7 @@ The framework validates a workflow for the JSONPlaceholder blog APIs.
 
 ## Non Automated Test Scenarios
 
-The following scenarios were identified as part of test coverage analysis but were not automated in the current scope:
+The following scenarios were identified as part of test coverage analysis but were not automated in the current scope due to time constraint, features are marked with a tag @Todo:
 
 - Retrieve comments when valid postId is provided
 - Comments should belongs to the post when valid postId is provided
@@ -43,6 +43,12 @@ The following scenarios were identified as part of test coverage analysis but we
 - User does not exist when invalid username is provided
 - User does not exist when empty username is provided
 - User does not exist when only special characters are provided as username
+- Validate response time for posts API
+- Validate API stability under repeated posts requests
+- Validate response time for comments API
+- Validate API stability under repeated comments requests
+- Validate response time for user API
+- Validate API stability under repeated user requests
 
 These scenarios were documented to demonstrate test design thinking and broader workflow coverage.
 
