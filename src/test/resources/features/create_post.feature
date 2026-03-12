@@ -1,4 +1,4 @@
-@create_post
+@create_post @regression
 Feature: Create Post API validation
 
   Scenario: Create a new post using external test data

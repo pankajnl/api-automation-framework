@@ -7,7 +7,7 @@ parameters:
 
   cucumber_tag:
     type: enum
-    enum: [ "@email_validation", "@positive_flow", "@negative_flow","@performance" ]
+    enum: [ "@email_validation", "@positive_flow", "@negative_flow","@performance","@regression" ]
     default: "@email_validation"
 
 jobs:
