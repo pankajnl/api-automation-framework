@@ -1,6 +1,5 @@
-@posts_validation
+@posts_validation @Todo
 Feature: Validate response details for posts api endpoint
-
   @positive_flow
   Scenario: Retrieve posts details when valid userId is provided
     Given a userId is 9
@@ -28,6 +27,19 @@ Feature: Validate response details for posts api endpoint
     Given a userId is 9
     When I fetch posts for that user
     Then each posts in the response should contain a valid id
+
+  @performance
+  Scenario: Validate response time for posts API
+    Given a userId is 9
+    When I fetch posts for that user
+    Then the response time should be less than 2 seconds
+
+  @performance
+  Scenario: Validate API stability under repeated posts requests
+    Given a userId is 9
+    When I request posts details for userId 50 times
+    Then all responses should return status code 200
+    And all responses should maintain a valid structure
 
   @negative_flow
   Scenario: No posts should be returned when invalid userId is provided

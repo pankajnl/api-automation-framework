@@ -1,4 +1,4 @@
-@user_validation
+@user_validation @Todo
 Feature: Validate response details for users api endpoint
 
   @positive_flow
@@ -46,6 +46,19 @@ Feature: Validate response details for users api endpoint
     Given a username is "Delphine"
     When I fetch details for that user
     Then the id field in the response should be a valid numeric value
+
+  @performance
+  Scenario: Validate response time for user API
+    Given a username is "Delphine"
+    When I fetch details for that user
+    Then the response time should be less than 2 seconds
+
+  @performance
+  Scenario: Validate API stability under repeated user requests
+    Given a username is "Delphine"
+    When I request user details for user 50 times
+    Then all responses should return status code 200
+    And all responses should maintain a valid structure
 
   @negative_flow
   Scenario: User does not exist when invalid username is provided

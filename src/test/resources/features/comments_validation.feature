@@ -1,4 +1,4 @@
-@comments_validation
+@comments_validation @Todo
 Feature: Validate response details for comments api endpoint
 
   @positive_flow
@@ -42,6 +42,19 @@ Feature: Validate response details for comments api endpoint
     Given a postId is 81
     When I fetch comments for that post
     Then all emails in comments should not be empty
+
+  @performance
+  Scenario: Validate response time for comments API
+    Given a postId is 81
+    When I fetch comments for that post
+    Then the response time should be less than 2 seconds
+
+  @performance
+  Scenario: Validate API stability under repeated comments requests
+    Given a postId is 81
+    When I request comments details for post 50 times
+    Then all responses should return status code 200
+    And all responses should maintain a valid structure
 
   @negative_flow
   Scenario: No comments should be returned when invalid postId is provided
