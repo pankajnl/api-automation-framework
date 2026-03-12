@@ -131,7 +131,7 @@ https://jsonplaceholder.typicode.com
 
 ## CI Integration
 The framework is integrated with CircleCI using pipeline parameters for environment and tag selection.
-
+![CircleCI Pipeline](images/circleci_config.png)
 Tests are executed in CI using:
 ```bash
 mvn clean verify -P<< pipeline.parameters.test_env >> -Dcucumber.filter.tags="<< pipeline.parameters.cucumber_tag >>"
