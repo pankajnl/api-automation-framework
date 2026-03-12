@@ -21,7 +21,7 @@ public class Hooks {
 
     @After("@Clanup")
     public void afterScenario() {
-        //System.out.println("This will run after the scenario");
+        // Perform cleanup tasks after the scenario
     }
 
 }

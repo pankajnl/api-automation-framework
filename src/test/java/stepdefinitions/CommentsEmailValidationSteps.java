@@ -39,12 +39,12 @@ public class CommentsEmailValidationSteps {
         SchemaValidator.validateSchema(response, "user_schema.json");
 
         User[] users = response.as(User[].class);
-        context.currentUser = users[0];
-        context.userId = context.currentUser.getId();
+        context.setCurrentUser(users[0]);
+        context.setUserId(context.getCurrentUser().getId());
     }
     @When("I fetch posts for that user")
     public void fetchPostForUser() {
-        response = given().spec(Utils.requestSpecification()).queryParam("userId",context.userId)
+        response = given().spec(Utils.requestSpecification()).queryParam("userId", context.getUserId())
                                .when().get(APIResources.GetPostAPI.getResource());
 
         response.then().statusCode(200);
@@ -56,15 +56,15 @@ public class CommentsEmailValidationSteps {
         SchemaValidator.validateSchema(response, "posts_schema.json");
 
         Posts[] posts = response.as(Posts[].class);
-        context.postIds.clear();
+        context.getPostIds().clear();
         for (Posts post : posts) {
-            context.postIds.add(post.getId());
+            context.getPostIds().add(post.getId());
         }
     }
     @When("I fetch comments for each post")
     public void fetchCommentsForEachPost() {
-        context.emailsInComments.clear();
-        for(Integer postId : context.postIds) {
+        context.getEmailsInComments().clear();
+        for(Integer postId : context.getPostIds()) {
             response = given().spec(Utils.requestSpecification()).queryParam("postId",postId)
                                          .when().get(APIResources.GetCommentApi.getResource());
 
@@ -79,14 +79,14 @@ public class CommentsEmailValidationSteps {
             Comments[] comments = response.as(Comments[].class);
             if (comments != null && comments.length > 0) {
                 for (Comments comment : comments) {
-                    context.emailsInComments.add(comment.getEmail());
+                    context.getEmailsInComments().add(comment.getEmail());
                 }
             }
         }
     }
     @Then("all emails in comments should be valid")
     public void validateEmailInComments() {
-        for(String email : context.emailsInComments) {
+        for(String email : context.getEmailsInComments()) {
             Assert.assertNotNull(email, "Email should not be null");
             Assert.assertFalse(email.trim().isEmpty(), "Email should not be empty");
             Assert.assertTrue(Validator.validateEmail(email),

@@ -21,40 +21,44 @@ public class CreatePostSteps {
 
     @Given("create post request data is loaded from {string}")
     public void createPostRequestDataIsLoadedFrom(String filepath) {
-        context.createPostRequest = TestDataReader.readTestData(filepath, Posts.class);
+        context.setCreatePostRequest(TestDataReader.readTestData(filepath, Posts.class));
     }
 
     @When("I submit the create post API request")
     public void iSubmitTheCreatePostApiRequest() {
-        response = given().spec(Utils.requestSpecification()).body(context.createPostRequest)
+        response = given().spec(Utils.requestSpecification()).body(context.getCreatePostRequest())
                                .when().post(APIResources.CreatePostAPI.getResource());
 
-        context.createPostResponse = response.as(Posts.class);
+        context.setCreatePostResponse(response.as(Posts.class));
 
         response.then().statusCode(201);
 
+
+    }
+    @Then("new post should be created successfully")
+    public void newPostCreatedSuccessfully() {
         Validator.validateCommonHeaders(response);
         Validator.validateCreatePostResponse(response);
 
         SchemaValidator.validateSchema(response, "create_post_response_schema.json");
-    }
-    @Then("new post should be created successfully")
-    public void newPostCreatedSuccessfully() {
+
         Assert.assertEquals(
-                context.createPostResponse.getTitle(),
-                context.createPostRequest.getTitle(),
+                context.getCreatePostResponse().getTitle(),
+                context.getCreatePostRequest().getTitle(),
                 "Title should match request payload"
         );
 
         Assert.assertEquals(
-                context.createPostResponse.getBody(),
-                context.createPostRequest.getBody(),
+                context.getCreatePostResponse().getBody(),
+                context.getCreatePostRequest().getBody(),
                 "Body should match request payload"
         );
         Assert.assertEquals(
-                context.createPostResponse.getUserId(),
-                context.createPostRequest.getUserId(),
-                "Body should match request payload"
+                context.getCreatePostResponse().getUserId(),
+                context.getCreatePostRequest().getUserId(),
+                "UserId should match request payload"
         );
+        Assert.assertNotNull(context.getCreatePostResponse().getId(), "Generated id should not be null");
+        Assert.assertTrue(context.getCreatePostResponse().getId() > 0, "Generated id should be greater than 0");
     }
 }
