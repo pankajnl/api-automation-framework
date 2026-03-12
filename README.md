@@ -1,6 +1,6 @@
 # API Automation Framework
 
-This repository contains an API automation framework developed using Rest-assured for API testing.
+This repository contains an API automation framework developed using Rest Assured for API testing.
 
 The framework validates a workflow for the JSONPlaceholder blog APIs.
 
